@@ -34,6 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.csrf().disable();
+
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/user").hasRole("ADMIN")
@@ -42,22 +44,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/distillery").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/distillery").hasRole("ADMIN")
 
-                .antMatchers(HttpMethod.GET,"/whisky").authenticated()
-                .antMatchers(HttpMethod.POST,"/whisky").authenticated()
-                .antMatchers(HttpMethod.DELETE,"/whisky").authenticated()
+                .antMatchers(HttpMethod.GET, "/whisky").authenticated()
+                .antMatchers(HttpMethod.POST, "/whisky").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/whisky").authenticated()
 
-                .antMatchers(HttpMethod.GET,"/storage").authenticated()
-                .antMatchers(HttpMethod.POST,"/storage").authenticated()
-                .antMatchers(HttpMethod.DELETE,"/storage").authenticated()
-
+                .antMatchers(HttpMethod.GET, "/storage").authenticated()
+                .antMatchers(HttpMethod.POST, "/storage").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/storage").authenticated()
 
                 .anyRequest().permitAll()
                 .and().formLogin().permitAll()
                 .and().logout().permitAll()
-                .and().csrf().disable()
 //                .and()
 //                .exceptionHandling()
 //                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+
+//
+
         ;
     }
 
